@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: "postgres:17.2" # Usa una imagen ya creada
+    image: "postgres:17.2"
     container_name: db_
     environment:
       - POSTGRES_DB=${DB_NAME}
@@ -15,7 +15,7 @@ services:
   api:
     container_name: api_
     build: ./api
-    environment: # Variables de entorno para la conexión a la base de datos
+    environment:
       - DB_PORT=${DB_PORT}
       - DB_HOST=${DB_HOST}
       - DB_NAME=${DB_NAME}
@@ -24,14 +24,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres # Que este servicio espere a que el servicio de base de datos este listo
+      - postgres
     volumes:
       - ./api:/app
     networks:
       - network
 
 volumes:
-  db_data: # Volumen para persistir los datos de la base de datos
+  db_data:
 networks:
-  network: # Red para conectar los contenedores entre si internamente
+  network:
     driver: bridge
